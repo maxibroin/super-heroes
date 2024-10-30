@@ -1,0 +1,47 @@
+<h2 mat-dialog-title>{{ isEditMode ? "Editar" : "Añadir" }} Superhéroe</h2>
+<mat-dialog-content>
+  <form [formGroup]="heroForm">
+    <mat-form-field>
+      <input
+        matInput
+        placeholder="Nombre"
+        formControlName="name"
+        appUppercase
+      />
+      <mat-error *ngIf="heroForm.get('name')?.hasError('required')"
+        >El campo es obligatorio</mat-error
+      >
+      <mat-error *ngIf="heroForm.get('name')?.hasError('maxlength')"
+        >Debe tener como máximo 60 caracteres</mat-error
+      >
+      <mat-error *ngIf="heroForm.get('name')?.hasError('minlength')"
+        >Debe tener al menos 3 caracteres</mat-error
+      >
+    </mat-form-field>
+    <mat-form-field>
+      <input matInput placeholder="Poder" formControlName="power" />
+      <mat-error *ngIf="heroForm.get('power')?.hasError('required')"
+        >El campo es obligatorio</mat-error
+      >
+      <mat-error *ngIf="heroForm.get('power')?.hasError('maxlength')"
+        >Debe tener como máximo 100 caracteres</mat-error
+      >
+      <mat-error *ngIf="heroForm.get('power')?.hasError('minlength')"
+        >Debe tener al menos 3 caracteres</mat-error
+      >
+    </mat-form-field>
+  </form>
+</mat-dialog-content>
+<mat-dialog-actions>
+  <div class="actions-container">
+    <button mat-button (click)="onCancel()">Cancelar</button>
+    <button
+      mat-raised-button
+      color="primary"
+      (click)="onSubmit()"
+      [disabled]="!heroForm.valid || !heroForm.dirty"
+    >
+      {{ isEditMode ? "Guardar" : "Añadir" }}
+    </button>
+  </div>
+</mat-dialog-actions>
