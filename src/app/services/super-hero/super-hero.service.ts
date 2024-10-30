@@ -24,7 +24,8 @@ export class SuperHeroService {
   }
 
   addHero(hero: NewSuperHero): Observable<SuperHero> {
-    const newHero = { ...hero, id: heroes().length + 1 };
+    const maxId = heroes().reduce((max, hero) => Math.max(max, hero.id), 0);
+    const newHero = { ...hero, id: maxId + 1 };
     heroes.update((heroes) => [newHero, ...heroes]);
     return of(newHero);
   }
